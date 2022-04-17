@@ -7,6 +7,12 @@ RSpec.describe Order, type: :model do
   
   describe 'validations' do
     it { should validate_inclusion_of(:status).in_array(['NEW', 'PAID', 'CANCELED']) }
+
+    it 'should have a valid email format' do
+      order = build(:order, email: 'halo@example')
+      order.valid?
+      expect(order.errors[:email]).to include('is not an email')
+    end
   end
 
   describe 'associations' do
