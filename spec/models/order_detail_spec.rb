@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe OrderDetail, type: :model do
-  describe 'association' do
+  describe 'associations' do
     it { should belong_to(:order) }
+    it { should belong_to(:menu_item) }
   end
 end
