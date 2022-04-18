@@ -14,6 +14,11 @@ RSpec.describe Order, type: :model do
       order.valid?
       expect(order.errors[:email]).to include('is not an email')
     end
+
+    it 'should have default NEW for status' do
+      order = Order.new
+      expect(order.status).to eq('NEW')
+    end
   end
 
   describe 'associations' do
