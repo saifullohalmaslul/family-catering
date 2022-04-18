@@ -2,11 +2,12 @@ require 'rails_helper'
 
 RSpec.describe Order, type: :model do
   it 'should have a valid factory' do
-    expect(build(:order)).to be_valid
+    expect(build(:order_with_menu_items)).to be_valid
   end
   
   describe 'validations' do
     it { should validate_inclusion_of(:status).in_array(['NEW', 'PAID', 'CANCELED']) }
+    it { should validate_presence_of(:menu_items) }
 
     it 'should have a valid email format' do
       order = build(:order, email: 'halo@example')
