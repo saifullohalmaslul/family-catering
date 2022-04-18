@@ -3,4 +3,5 @@ class Order < ApplicationRecord
   validates :email, email: true
   
   has_many :order_details
+  has_many :menu_items, through: :order_details
 end
