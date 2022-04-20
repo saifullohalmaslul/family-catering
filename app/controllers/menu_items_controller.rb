@@ -33,6 +33,8 @@ class MenuItemsController < ApplicationController
     @menu_item = MenuItem.find(params[:id])
     if @menu_item.update(params.require(:menu_item).permit(:name, :description, :price))
       redirect_to @menu_item
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 end

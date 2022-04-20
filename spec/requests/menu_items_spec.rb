@@ -115,7 +115,12 @@ RSpec.describe MenuItemsController, type: :controller do
         expect(menu_item.name).not_to eq "Nasi Goreng"
       end
       
-      it 're-renders the edit template'
+      it 're-renders the edit template' do
+        patch :update, params: { id: menu_item, menu_item: attributes_for(:invalid_menu_item) }
+        create(:menu_item_with_categories)
+        expect(assigns(:menu_item)).to eq menu_item
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
     end
   end
 
