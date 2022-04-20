@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   resources :menu_items
+  get '/orders/new', to: 'orders#new', as: 'new_order'
 end
