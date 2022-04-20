@@ -22,6 +22,8 @@ class OrdersController < ApplicationController
 
       fill_total_price(@order)
     end
+    
+    render :new
   end
 
   private
