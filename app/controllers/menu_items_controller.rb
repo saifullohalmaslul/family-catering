@@ -37,4 +37,9 @@ class MenuItemsController < ApplicationController
       render :edit, status: :unprocessable_entity
     end
   end
+
+  def destroy
+    @menu_item = MenuItem.find(params[:id])
+    @menu_item.destroy
+  end
 end

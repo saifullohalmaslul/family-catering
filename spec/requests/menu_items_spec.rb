@@ -125,7 +125,14 @@ RSpec.describe MenuItemsController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    it "deletes the menu_item from the database"
+    before { @menu_item = create(:menu_item_with_categories) }
+    
+    it "deletes the menu_item from the database" do
+      expect{
+        delete :destroy, params: { id: @menu_item }
+      }.to change(MenuItem, :count).by(-1)
+    end
+    
     it "redirects to menu_items#index"
   end
 end
