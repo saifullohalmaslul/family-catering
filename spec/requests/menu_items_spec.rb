@@ -109,7 +109,12 @@ RSpec.describe MenuItemsController, type: :controller do
     end
 
     context 'with invalid attributes' do
-      it 'does not save the updated menu_item in the database'
+      it 'does not save the updated menu_item in the database' do
+        patch :update, params: { id: menu_item, menu_item: attributes_for(:invalid_menu_item, name: "Nasi Goreng", price: "One million") }
+        menu_item.reload
+        expect(menu_item.name).not_to eq "Nasi Goreng"
+      end
+      
       it 're-renders the edit template'
     end
   end
