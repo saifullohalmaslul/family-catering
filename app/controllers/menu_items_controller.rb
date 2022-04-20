@@ -31,6 +31,8 @@ class MenuItemsController < ApplicationController
 
   def update
     @menu_item = MenuItem.find(params[:id])
-    @menu_item.update(params.require(:menu_item).permit(:name, :description, :price))
+    if @menu_item.update(params.require(:menu_item).permit(:name, :description, :price))
+      redirect_to @menu_item
+    end
   end
 end
