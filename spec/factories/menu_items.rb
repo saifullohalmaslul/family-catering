@@ -8,4 +8,8 @@ FactoryBot.define do
       categories { [association(:category)] }
     end
   end
+
+  factory :menu_item_without_name, parent: :menu_item do
+    name { nil }
+  end
 end
