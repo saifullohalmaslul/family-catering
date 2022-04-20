@@ -88,8 +88,14 @@ RSpec.describe MenuItemsController, type: :controller do
   end
 
   describe 'PATCH #update' do
-    context "with valid attributes" do
-      it "locates the requested @menu_item"
+    let(:menu_item) { create(:menu_item_with_categories) }
+    
+    it "locates the requested @menu_item" do
+      patch :update, params: { id: menu_item, menu_item: attributes_for(:menu_item) }
+      expect(assigns(:menu_item)).to eq menu_item
+    end
+    
+    context "with valid attributes" do  
       it "changes @menu_item's attributes"
       it "redirects to the menu_item"
     end

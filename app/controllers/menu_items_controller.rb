@@ -28,4 +28,8 @@ class MenuItemsController < ApplicationController
       render :new
     end
   end
+
+  def update
+    @menu_item = MenuItem.find(params[:id])
+  end
 end
