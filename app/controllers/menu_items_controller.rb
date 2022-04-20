@@ -24,6 +24,8 @@ class MenuItemsController < ApplicationController
 
     if @menu_item.save
       redirect_to @menu_item
+    else
+      render :new
     end
   end
 end
