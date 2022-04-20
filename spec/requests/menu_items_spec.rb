@@ -46,8 +46,17 @@ RSpec.describe MenuItemsController, type: :controller do
   end
 
   describe 'GET #edit' do
-    it "assigns the requested menu_item to @menu_item"
-    it "renders the :edit template"
+    it "assigns the requested menu_item to @menu_item" do
+      menu_item = create(:menu_item_with_categories)
+      get :edit, params: { id: menu_item }
+      expect(assigns(:menu_item)).to eq menu_item
+    end
+    
+    it "renders the :edit template" do
+      menu_item = create(:menu_item_with_categories)
+      get :edit, params: { id: menu_item }
+      expect(response).to render_template :edit
+    end
   end
 
   describe 'POST #create' do
