@@ -95,8 +95,13 @@ RSpec.describe MenuItemsController, type: :controller do
       expect(assigns(:menu_item)).to eq menu_item
     end
     
-    context "with valid attributes" do  
-      it "changes @menu_item's attributes"
+    context "with valid attributes" do
+      it "changes @menu_item's attributes" do
+        patch :update, params: { id: menu_item, menu_item: attributes_for(:menu_item, name: "Nasi Goreng") }
+        menu_item.reload
+        expect(menu_item.name).to eq "Nasi Goreng"
+      end
+      
       it "redirects to the menu_item"
     end
 
