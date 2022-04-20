@@ -7,7 +7,6 @@ RSpec.describe Order, type: :model do
   
   describe 'validations' do
     it { should validate_inclusion_of(:status).in_array(['NEW', 'PAID', 'CANCELED']) }
-    it { should validate_presence_of(:menu_items) }
 
     it 'should have a valid email format' do
       order = build(:order, email: 'halo@example')
