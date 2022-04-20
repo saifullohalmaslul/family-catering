@@ -34,8 +34,15 @@ RSpec.describe MenuItemsController, type: :controller do
   end
 
   describe 'GET #new' do
-    it "assigns a new menu_item to @menu_item"
-    it "renders the :new template"
+    it "assigns a new menu_item to @menu_item" do
+      get :new
+      expect(assigns(:menu_item)).to be_a_new(MenuItem)
+    end
+    
+    it "renders the :new template" do
+      get :new
+      expect(response).to render_template :new
+    end
   end
 
   describe 'GET #edit' do
