@@ -76,12 +76,12 @@ RSpec.describe MenuItemsController, type: :controller do
     context "with invalid attributes" do
       it "does not save the new menu_item in the database" do
         expect{
-          post :create, params: { menu_item: attributes_for(:menu_item_without_name), category_names: ["Indonesian", "Breakfast"] }
+          post :create, params: { menu_item: attributes_for(:invalid_menu_item), category_names: ["Indonesian", "Breakfast"] }
         }.not_to change(MenuItem, :count)
       end
       
       it "re-renders the :new template" do
-        post :create, params: { menu_item: attributes_for(:menu_item_without_name), category_names: ["Indonesian", "Breakfast"] }
+        post :create, params: { menu_item: attributes_for(:invalid_menu_item), category_names: ["Indonesian", "Breakfast"] }
         expect(response).to render_template :new
       end
     end

@@ -9,7 +9,8 @@ FactoryBot.define do
     end
   end
 
-  factory :menu_item_without_name, parent: :menu_item do
+  factory :invalid_menu_item, parent: :menu_item do
     name { nil }
+    price { nil }
   end
 end

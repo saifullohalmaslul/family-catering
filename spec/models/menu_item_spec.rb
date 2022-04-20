@@ -4,6 +4,10 @@ RSpec.describe MenuItem, type: :model do
   it 'should have a valid factory' do
     expect(create(:menu_item_with_categories)).to be_valid
   end
+
+  it 'should have an invalid factory' do
+    expect(build(:invalid_menu_item)).to be_invalid
+  end
   
   describe 'validations' do
     it { should validate_presence_of(:name) }
