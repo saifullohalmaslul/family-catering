@@ -61,8 +61,16 @@ RSpec.describe MenuItemsController, type: :controller do
 
   describe 'POST #create' do
     context "with valid attributes" do
-      it "saves the new menu_item in the database"
-      it "redirects to menu_items#show"
+      it "saves the new menu_item in the database" do
+        expect{
+          post :create, params: { menu_item: attributes_for(:menu_item), category_names: ["Indonesian", "Breakfast"] }
+        }.to change(MenuItem, :count).by(1)
+      end
+      
+      it "redirects to menu_items#show" do
+        post :create, params: { menu_item: attributes_for(:menu_item), category_names: ["Indonesian", "Breakfast"] }
+        expect(response).to redirect_to(menu_item_path(assigns[:menu_item]))
+      end
     end
 
     context "with invalid attributes" do

@@ -14,4 +14,16 @@ class MenuItemsController < ApplicationController
   def edit
     @menu_item = MenuItem.find(params[:id])
   end
+
+  def create
+    @menu_item = MenuItem.new(params.require(:menu_item).permit(:name, :description, :price))
+
+    params[:category_names].each do |category_name|
+      @menu_item.categories << Category.find_or_create_by(name: category_name)
+    end
+
+    if @menu_item.save
+      redirect_to @menu_item
+    end
+  end
 end
