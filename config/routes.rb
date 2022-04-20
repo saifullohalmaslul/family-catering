@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   # root "articles#index"
   resources :menu_items
   get '/orders/new', to: 'orders#new', as: 'new_order'
+  get '/orders/:id/edit', to: 'orders#edit', as: 'edit_order'
 end

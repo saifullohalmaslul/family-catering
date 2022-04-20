@@ -12,4 +12,18 @@ RSpec.describe OrdersController, type: :controller do
       expect(response).to render_template :new
     end
   end
+
+  describe 'GET #edit' do
+    it "assigns the requested order to @order" do
+      order = create(:order_with_menu_items)
+      get :edit, params: { id: order }
+      expect(assigns(:order)).to eq order
+    end
+    
+    it "renders the :edit template" do
+      order = create(:order_with_menu_items)
+      get :edit, params: { id: order }
+      expect(response).to render_template :edit
+    end
+  end
 end
