@@ -41,5 +41,7 @@ class MenuItemsController < ApplicationController
   def destroy
     @menu_item = MenuItem.find(params[:id])
     @menu_item.destroy
+
+    redirect_to menu_items_url
   end
 end
