@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :menu_item do
-    name { Faker::Food.dish }
+    name { Faker::Food.unique.dish }
     price { 10_000.00 }
     description { "This is the default description" }
 
