@@ -26,4 +26,20 @@ RSpec.describe OrdersController, type: :controller do
       expect(response).to render_template :edit
     end
   end
+
+  describe 'POST #create' do
+    context "with valid attributes" do
+      it "saves the new order in the database" do
+        expect{
+          post :create, params: { 
+            order: attributes_for(:order), 
+            details: [
+              { menu_item: create(:menu_item_with_categories, price: 12_000), quantity: 1 },
+              { menu_item: create(:menu_item_with_categories, price: 10_000), quantity: 3 }
+            ]
+          }
+        }.to change(Order, :count).by(1)
+      end
+    end
+  end
 end
