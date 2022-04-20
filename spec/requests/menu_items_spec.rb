@@ -7,8 +7,17 @@ RSpec.describe MenuItemsController, type: :controller do
   end
 
   describe 'GET #show' do
-    it "assigns the requested menu_item to @menu_item"
-    it "renders the :show template"
+    it "assigns the requested menu_item to @menu_item" do
+      menu_item = create(:menu_item_with_categories)
+      get :show, params: { id: menu_item }
+      expect(assigns(:menu_item)).to eq menu_item
+    end
+    
+    it "renders the :show template" do
+      menu_item = create(:menu_item_with_categories)
+      get :show, params: { id: menu_item }
+      expect(response).to render_template :show
+    end
   end
 
   describe 'GET #new' do
