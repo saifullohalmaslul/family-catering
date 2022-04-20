@@ -2,8 +2,21 @@ require 'rails_helper'
 
 RSpec.describe MenuItemsController, type: :controller do
   describe 'GET #index' do
-    it "populates an array of all menu_items"
-    it "renders the :index template"
+    it "populates an array of all menu_items" do
+      menu_items = [
+        create(:menu_item_with_categories),
+        create(:menu_item_with_categories),
+        create(:menu_item_with_categories)
+      ]
+
+      get :index
+      expect(assigns(:menu_items)).to match_array menu_items
+    end
+    
+    it "renders the :index template" do
+      get :index
+      expect(response).to render_template :index
+    end
   end
 
   describe 'GET #show' do
