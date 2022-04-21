@@ -12,6 +12,17 @@ RSpec.describe OrdersController, type: :controller do
   end
 
   describe 'GET #index' do
+    it "populates an array of all orders" do
+      orders = [
+        create(:order_with_menu_items),
+        create(:order_with_menu_items),
+        create(:order_with_menu_items)
+      ]
+
+      get :index
+      expect(assigns(:orders)).to match_array orders
+    end
+    
     it "renders the :index template" do
       get :index
       expect(response).to render_template :index
