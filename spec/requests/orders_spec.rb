@@ -10,6 +10,13 @@ RSpec.describe OrdersController, type: :controller do
       ]
     }
   end
+
+  describe 'GET #index' do
+    it "renders the :index template" do
+      get :index
+      expect(response).to render_template :index
+    end
+  end
   
   describe 'GET #new' do
     it "assigns a new order to @order" do
