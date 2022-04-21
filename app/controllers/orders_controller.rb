@@ -26,6 +26,10 @@ class OrdersController < ApplicationController
     render :new
   end
 
+  def update
+    @order = Order.find(params[:id])
+  end
+
   private
 
   def fill_order_detail(order, menu_item, quantity)

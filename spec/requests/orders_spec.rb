@@ -68,4 +68,23 @@ RSpec.describe OrdersController, type: :controller do
       end
     end
   end
+
+  describe 'PATCH #update' do
+    let(:order) { create(:order_with_menu_items) }
+    
+    context "with valid attributes" do
+      it "locates the requested @order" do
+        patch :update, params: { 
+          id: order,
+          order: attributes_for(:order), 
+          details: [
+            { menu_item: create(:menu_item_with_categories, price: 12_000), quantity: 1 },
+            { menu_item: create(:menu_item_with_categories, price: 10_000), quantity: 3 }
+          ]
+        }
+
+        expect(assigns(:order)).to eq order
+      end
+    end
+  end
 end
