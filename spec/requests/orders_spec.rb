@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe OrdersController, type: :controller do
   before do
     @order_requirements = {
-      order: attributes_for(:order), 
+      attributes: attributes_for(:order), 
       details: [
         { menu_item: create(:menu_item_with_categories, price: 12_000), quantity: 1 },
         { menu_item: create(:menu_item_with_categories, price: 10_000), quantity: 3 }
@@ -55,7 +55,7 @@ RSpec.describe OrdersController, type: :controller do
 
     context "with invalid attributes" do
       it "does not saves the new order in the database" do
-        @order_requirements[:order] = attributes_for(:invalid_order)
+        @order_requirements[:attributes] = attributes_for(:invalid_order)
         
         expect{
           post :create, params: @order_requirements
@@ -77,7 +77,7 @@ RSpec.describe OrdersController, type: :controller do
 
       it "changes the @order's attribute" do
         @order_requirements[:id] = order
-        @order_requirements[:order][:status] = 'PAID'
+        @order_requirements[:attributes][:status] = 'PAID'
         
         patch :update, params: @order_requirements
         order.reload
@@ -89,7 +89,7 @@ RSpec.describe OrdersController, type: :controller do
     context "with invalid attributes" do
       it "does not change the @order's attribute" do
         @order_requirements[:id] = order
-        @order_requirements[:order] = attributes_for(:invalid_order)
+        @order_requirements[:attributes] = attributes_for(:invalid_order)
         
         patch :update, params: @order_requirements
         order.reload
