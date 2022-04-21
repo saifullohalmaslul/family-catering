@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Order, type: :model do
   it 'should have a valid factory' do
-    expect(build(:order_with_menu_items)).to be_valid
+    expect(build(:order)).to be_valid
   end
 
   it 'should have an invalid factory' do
