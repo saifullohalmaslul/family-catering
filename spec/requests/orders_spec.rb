@@ -80,8 +80,21 @@ RSpec.describe OrdersController, type: :controller do
         @order_requirements[:order][:status] = 'PAID'
         
         patch :update, params: @order_requirements
+        order.reload
         
-        expect(assigns(:order).status).to eq 'PAID'
+        expect(order.status).to eq 'PAID'
+      end
+    end
+
+    context "with invalid attributes" do
+      it "does not change the @order's attribute" do
+        @order_requirements[:id] = order
+        @order_requirements[:order] = attributes_for(:invalid_order)
+        
+        patch :update, params: @order_requirements
+        order.reload
+        
+        expect(order.status).not_to eq attributes_for(:invalid_order)[:status]
       end
     end
   end
