@@ -63,12 +63,12 @@ RSpec.describe MenuItemsController, type: :controller do
     context "with valid attributes" do
       it "saves the new menu_item in the database" do
         expect{
-          post :create, params: { menu_item: attributes_for(:menu_item), category_names: ["Indonesian", "Breakfast"] }
+          post :create, params: { attributes: attributes_for(:menu_item), category_names: ["Indonesian", "Breakfast"] }
         }.to change(MenuItem, :count).by(1)
       end
       
       it "redirects to menu_items#show" do
-        post :create, params: { menu_item: attributes_for(:menu_item), category_names: ["Indonesian", "Breakfast"] }
+        post :create, params: { attributes: attributes_for(:menu_item), category_names: ["Indonesian", "Breakfast"] }
         expect(response).to redirect_to(menu_item_path(assigns[:menu_item]))
       end
     end
@@ -76,12 +76,12 @@ RSpec.describe MenuItemsController, type: :controller do
     context "with invalid attributes" do
       it "does not save the new menu_item in the database" do
         expect{
-          post :create, params: { menu_item: attributes_for(:invalid_menu_item), category_names: ["Indonesian", "Breakfast"] }
+          post :create, params: { attributes: attributes_for(:invalid_menu_item), category_names: ["Indonesian", "Breakfast"] }
         }.not_to change(MenuItem, :count)
       end
       
       it "re-renders the :new template" do
-        post :create, params: { menu_item: attributes_for(:invalid_menu_item), category_names: ["Indonesian", "Breakfast"] }
+        post :create, params: { attributes: attributes_for(:invalid_menu_item), category_names: ["Indonesian", "Breakfast"] }
         expect(response).to render_template :new
       end
     end
@@ -91,32 +91,32 @@ RSpec.describe MenuItemsController, type: :controller do
     let(:menu_item) { create(:menu_item_with_categories) }
     
     it "locates the requested @menu_item" do
-      patch :update, params: { id: menu_item, menu_item: attributes_for(:menu_item) }
+      patch :update, params: { id: menu_item, attributes: attributes_for(:menu_item) }
       expect(assigns(:menu_item)).to eq menu_item
     end
     
     context "with valid attributes" do
       it "changes @menu_item's attributes" do
-        patch :update, params: { id: menu_item, menu_item: attributes_for(:menu_item, name: "Nasi Goreng") }
+        patch :update, params: { id: menu_item, attributes: attributes_for(:menu_item, name: "Nasi Goreng") }
         menu_item.reload
         expect(menu_item.name).to eq "Nasi Goreng"
       end
       
       it "redirects to the menu_item" do
-        patch :update, params: { id: menu_item, menu_item: attributes_for(:menu_item) }
+        patch :update, params: { id: menu_item, attributes: attributes_for(:menu_item) }
         expect(response).to redirect_to menu_item
       end
     end
 
     context 'with invalid attributes' do
       it 'does not save the updated menu_item in the database' do
-        patch :update, params: { id: menu_item, menu_item: attributes_for(:invalid_menu_item, name: "Nasi Goreng", price: "One million") }
+        patch :update, params: { id: menu_item, attributes: attributes_for(:invalid_menu_item, name: "Nasi Goreng", price: "One million") }
         menu_item.reload
         expect(menu_item.name).not_to eq "Nasi Goreng"
       end
       
       it 're-renders the edit template' do
-        patch :update, params: { id: menu_item, menu_item: attributes_for(:invalid_menu_item) }
+        patch :update, params: { id: menu_item, attributes: attributes_for(:invalid_menu_item) }
         create(:menu_item_with_categories)
         expect(assigns(:menu_item)).to eq menu_item
         expect(response).to have_http_status(:unprocessable_entity)

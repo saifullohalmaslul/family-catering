@@ -16,7 +16,7 @@ class MenuItemsController < ApplicationController
   end
 
   def create
-    @menu_item = MenuItem.new(params.require(:menu_item).permit(:name, :description, :price))
+    @menu_item = MenuItem.new(params.require(:attributes).permit(:name, :description, :price))
 
     params[:category_names].each do |category_name|
       @menu_item.categories << Category.find_or_create_by(name: category_name)
@@ -31,7 +31,7 @@ class MenuItemsController < ApplicationController
 
   def update
     @menu_item = MenuItem.find(params[:id])
-    if @menu_item.update(params.require(:menu_item).permit(:name, :description, :price))
+    if @menu_item.update(params.require(:attributes).permit(:name, :description, :price))
       redirect_to @menu_item
     else
       render :edit, status: :unprocessable_entity
