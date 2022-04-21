@@ -74,6 +74,15 @@ RSpec.describe OrdersController, type: :controller do
         
         expect(assigns(:order)).to eq order
       end
+
+      it "changes the @order's attribute" do
+        @order_requirements[:id] = order
+        @order_requirements[:order][:status] = 'PAID'
+        
+        patch :update, params: @order_requirements
+        
+        expect(assigns(:order).status).to eq 'PAID'
+      end
     end
   end
 end

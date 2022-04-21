@@ -28,6 +28,7 @@ class OrdersController < ApplicationController
 
   def update
     @order = Order.find(params[:id])
+    @order.update(params.require(:order).permit(:status, :email))
   end
 
   private
