@@ -4,6 +4,10 @@ RSpec.describe Order, type: :model do
   it 'should have a valid factory' do
     expect(build(:order_with_menu_items)).to be_valid
   end
+
+  it 'should have an invalid factory' do
+    expect(build(:invalid_order)).to be_invalid
+  end
   
   describe 'validations' do
     it { should validate_inclusion_of(:status).in_array(['NEW', 'PAID', 'CANCELED']) }

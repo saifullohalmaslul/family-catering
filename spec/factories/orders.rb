@@ -7,4 +7,9 @@ FactoryBot.define do
       menu_items { [association(:menu_item_with_categories)] }
     end
   end
+
+  factory :invalid_order, parent: :order do
+    status { "INVALID" }
+    email { "invalid@mail" }
+  end
 end
