@@ -7,7 +7,7 @@ class Order < ApplicationRecord
 
   accepts_nested_attributes_for :order_details
 
-  after_create :calculate_total_price
+  after_save :calculate_total_price
 
   private
 
