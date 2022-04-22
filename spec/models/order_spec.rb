@@ -28,4 +28,14 @@ RSpec.describe Order, type: :model do
     it { should have_many(:order_details) }
     it { should have_many(:menu_items) }
   end
+
+  it 'should save the total price of purchase' do
+    order = create(:order_with_menu_items)
+
+    prices = order.order_details.map do |order_detail| 
+      order_detail.price * order_detail.quantity 
+    end
+
+    expect(order.total_price).to eq prices.sum
+  end
 end
