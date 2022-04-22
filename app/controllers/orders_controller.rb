@@ -23,7 +23,9 @@ class OrdersController < ApplicationController
 
   def update
     @order = Order.find(params[:id])
-    @order.update(order_params)
+    if @order.update(order_params)
+      redirect_to orders_url
+    end
   end
 
   private

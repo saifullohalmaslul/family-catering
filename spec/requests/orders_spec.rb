@@ -110,6 +110,13 @@ RSpec.describe OrdersController, type: :controller do
         
         expect(order.status).to eq 'PAID'
       end
+
+      it "redirects to orders#index" do
+        @order_attributes[:id] = order
+        patch :update, params: @order_attributes
+        
+        expect(response).to redirect_to orders_url
+      end
     end
 
     context "with invalid attributes" do
