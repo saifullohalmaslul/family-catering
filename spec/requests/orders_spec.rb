@@ -5,8 +5,8 @@ RSpec.describe OrdersController, type: :controller do
     @order_requirements = {
       attributes: attributes_for(:order), 
       details: [
-        { menu_item: create(:menu_item_with_categories, price: 12_000), quantity: 1 },
-        { menu_item: create(:menu_item_with_categories, price: 10_000), quantity: 3 }
+        { menu_item: create(:menu_item, price: 12_000), quantity: 1 },
+        { menu_item: create(:menu_item, price: 10_000), quantity: 3 }
       ]
     }
   end

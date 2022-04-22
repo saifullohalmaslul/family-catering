@@ -3,10 +3,7 @@ FactoryBot.define do
     sequence(:name) { |n| Faker::Food.dish + " #{n}"}
     price { 10_000.00 }
     description { "This is the default description" }
-
-    factory :menu_item_with_categories do
-      categories { [association(:category)] }
-    end
+    category_names { "American, Chicken" }
   end
 
   factory :invalid_menu_item, parent: :menu_item do

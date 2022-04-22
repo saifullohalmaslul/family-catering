@@ -4,7 +4,7 @@ FactoryBot.define do
     total_price { 120_000.59 }
 
     factory :order_with_menu_items do
-      menu_items { [association(:menu_item_with_categories)] }
+      menu_items { [association(:menu_item)] }
     end
   end
 

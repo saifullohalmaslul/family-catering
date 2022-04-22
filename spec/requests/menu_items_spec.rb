@@ -16,9 +16,9 @@ RSpec.describe MenuItemsController, type: :controller do
   describe 'GET #index' do
     it "populates an array of all menu_items" do
       menu_items = [
-        create(:menu_item_with_categories),
-        create(:menu_item_with_categories),
-        create(:menu_item_with_categories)
+        create(:menu_item),
+        create(:menu_item),
+        create(:menu_item)
       ]
 
       get :index
@@ -33,13 +33,13 @@ RSpec.describe MenuItemsController, type: :controller do
 
   describe 'GET #show' do
     it "assigns the requested menu_item to @menu_item" do
-      menu_item = create(:menu_item_with_categories)
+      menu_item = create(:menu_item)
       get :show, params: { id: menu_item }
       expect(assigns(:menu_item)).to eq menu_item
     end
     
     it "renders the :show template" do
-      menu_item = create(:menu_item_with_categories)
+      menu_item = create(:menu_item)
       get :show, params: { id: menu_item }
       expect(response).to render_template :show
     end
@@ -59,13 +59,13 @@ RSpec.describe MenuItemsController, type: :controller do
 
   describe 'GET #edit' do
     it "assigns the requested menu_item to @menu_item" do
-      menu_item = create(:menu_item_with_categories)
+      menu_item = create(:menu_item)
       get :edit, params: { id: menu_item }
       expect(assigns(:menu_item)).to eq menu_item
     end
     
     it "renders the :edit template" do
-      menu_item = create(:menu_item_with_categories)
+      menu_item = create(:menu_item)
       get :edit, params: { id: menu_item }
       expect(response).to render_template :edit
     end
@@ -102,7 +102,7 @@ RSpec.describe MenuItemsController, type: :controller do
   end
 
   describe 'PATCH #update' do
-    let(:menu_item) { create(:menu_item_with_categories) }
+    let(:menu_item) { create(:menu_item) }
     before do
       @menu_item_attributes[:menu_item][:name] = "Nasi Goreng"
     end
@@ -146,7 +146,7 @@ RSpec.describe MenuItemsController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    before { @menu_item = create(:menu_item_with_categories) }
+    before { @menu_item = create(:menu_item) }
     
     it "deletes the menu_item from the database" do
       expect{
