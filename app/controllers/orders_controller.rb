@@ -25,6 +25,8 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
     if @order.update(order_params)
       redirect_to orders_url
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 

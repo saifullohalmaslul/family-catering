@@ -129,6 +129,14 @@ RSpec.describe OrdersController, type: :controller do
         
         expect(order.status).not_to eq attributes_for(:invalid_order)[:status]
       end
+
+      it "re-renders the :edit template" do
+        @order_attributes[:id] = order
+        @order_attributes[:order] = attributes_for(:invalid_order)
+        
+        patch :update, params: @order_attributes
+        expect(response).to render_template :edit
+      end
     end
   end
 end
