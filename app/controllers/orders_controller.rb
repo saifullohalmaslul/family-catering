@@ -40,6 +40,6 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:status, :email, order_details_attributes: [ :menu_item_id, :quantity ])
+    params.require(:order).permit(:status, :email, order_details_attributes: [ :id, :menu_item_id, :quantity ])
   end
 end
