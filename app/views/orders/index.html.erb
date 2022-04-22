@@ -1,0 +1,18 @@
+<p style="color: green"><%= notice %></p>
+
+<%= link_to "New order", new_order_path %>
+
+<h1>Orders</h1>
+
+<div id="orders">
+  <% @orders.each do |order| %>
+    <%= render order %>
+    <div>
+      <%= link_to "Edit this order", edit_order_path(order) %>
+      <%= button_to "Destroy this order", order, method: :delete %>
+    </div>
+    <hr>
+  <% end %>
+</div>
+
+

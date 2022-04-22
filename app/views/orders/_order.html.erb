@@ -1,0 +1,38 @@
+<div id="<%= dom_id order %>">
+  <p>
+    <strong>Status:</strong>
+    <%= order.status %>
+  </p>
+  
+  <p>
+    <strong>Email:</strong>
+    <%= order.email %>
+  </p>
+
+  <table border="1px solid black">
+    <tr>
+      <th width="100">Item</th>
+      <th width="100">Price</th>
+      <th width="100">Quantity</th>
+    </tr>
+    <% order.order_details.each do |order_detail| %>
+      <tr>
+        <td>
+          <%= order_detail.menu_item.name %>
+        </td>
+        <td>
+          <%= "Rp#{number_with_delimiter(order_detail.price)}" %>
+        </td>
+        <td>
+          <%= order_detail.quantity %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+  
+  <p>
+    <strong>Total:</strong>
+    <%= order.total_price %>
+  </p>
+
+</div>
