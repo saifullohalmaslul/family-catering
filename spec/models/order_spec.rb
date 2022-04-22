@@ -8,6 +8,8 @@ RSpec.describe Order, type: :model do
   it 'should have an invalid factory' do
     expect(build(:invalid_order)).to be_invalid
   end
+
+  it { should accept_nested_attributes_for(:order_details) }
   
   describe 'validations' do
     it { should validate_inclusion_of(:status).in_array(['NEW', 'PAID', 'CANCELED']) }
