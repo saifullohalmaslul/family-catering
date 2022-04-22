@@ -3,13 +3,7 @@ require 'rails_helper'
 RSpec.describe MenuItemsController, type: :controller do
   before do
     @menu_item_attributes = { 
-      menu_item: attributes_for(:menu_item).merge({
-        category_ids: [
-          create(:category),
-          create(:category),
-          create(:category)
-        ]
-      })
+      menu_item: attributes_for(:menu_item) 
     }
   end
   
