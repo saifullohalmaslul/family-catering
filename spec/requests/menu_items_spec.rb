@@ -2,9 +2,14 @@ require 'rails_helper'
 
 RSpec.describe MenuItemsController, type: :controller do
   before do
-    @menu_item_requirements = { 
-      attributes: attributes_for(:menu_item), 
-      category_names: ["Indonesian", "Breakfast"] 
+    @menu_item_attributes = { 
+      menu_item: attributes_for(:menu_item).merge({
+        category_ids: [
+          create(:category),
+          create(:category),
+          create(:category)
+        ]
+      })
     }
   end
   
@@ -70,27 +75,27 @@ RSpec.describe MenuItemsController, type: :controller do
     context "with valid attributes" do
       it "saves the new menu_item in the database" do
         expect{
-          post :create, params: @menu_item_requirements
+          post :create, params: @menu_item_attributes
         }.to change(MenuItem, :count).by(1)
       end
       
       it "redirects to menu_items#show" do
-        post :create, params: @menu_item_requirements
+        post :create, params: @menu_item_attributes
         expect(response).to redirect_to(menu_item_path(assigns[:menu_item]))
       end
     end
 
     context "with invalid attributes" do
-      before { @menu_item_requirements[:attributes] = attributes_for(:invalid_menu_item) }
+      before { @menu_item_attributes[:menu_item] = attributes_for(:invalid_menu_item) }
       
       it "does not save the new menu_item in the database" do
         expect{
-          post :create, params: @menu_item_requirements
+          post :create, params: @menu_item_attributes
         }.not_to change(MenuItem, :count)
       end
       
       it "re-renders the :new template" do
-        post :create, params: @menu_item_requirements
+        post :create, params: @menu_item_attributes
         expect(response).to render_template :new
       end
     end
@@ -99,40 +104,40 @@ RSpec.describe MenuItemsController, type: :controller do
   describe 'PATCH #update' do
     let(:menu_item) { create(:menu_item_with_categories) }
     before do
-      @menu_item_requirements[:attributes][:name] = "Nasi Goreng"
+      @menu_item_attributes[:menu_item][:name] = "Nasi Goreng"
     end
     
     it "locates the requested @menu_item" do
-      patch :update, params: { id: menu_item }.merge(@menu_item_requirements)
+      patch :update, params: { id: menu_item }.merge(@menu_item_attributes)
       expect(assigns(:menu_item)).to eq menu_item
     end
     
     context "with valid attributes" do
       it "changes @menu_item's attributes" do
-        patch :update, params: { id: menu_item }.merge(@menu_item_requirements)
+        patch :update, params: { id: menu_item }.merge(@menu_item_attributes)
         menu_item.reload
         
-        expect(menu_item.name).to eq @menu_item_requirements[:attributes][:name]
+        expect(menu_item.name).to eq @menu_item_attributes[:menu_item][:name]
       end
       
       it "redirects to the menu_item" do
-        patch :update, params: { id: menu_item }.merge(@menu_item_requirements)
+        patch :update, params: { id: menu_item }.merge(@menu_item_attributes)
         expect(response).to redirect_to menu_item
       end
     end
 
     context 'with invalid attributes' do
-      before { @menu_item_requirements[:attributes] = attributes_for(:invalid_menu_item) }
+      before { @menu_item_attributes[:menu_item] = attributes_for(:invalid_menu_item) }
       
       it 'does not save the updated menu_item in the database' do
-        patch :update, params: { id: menu_item }.merge(@menu_item_requirements)
+        patch :update, params: { id: menu_item }.merge(@menu_item_attributes)
         menu_item.reload
         
-        expect(menu_item.name).not_to eq @menu_item_requirements[:attributes][:name]
+        expect(menu_item.name).not_to eq @menu_item_attributes[:menu_item][:name]
       end
       
       it 're-renders the edit template' do
-        patch :update, params: { id: menu_item }.merge(@menu_item_requirements)
+        patch :update, params: { id: menu_item }.merge(@menu_item_attributes)
         
         expect(assigns(:menu_item)).to eq menu_item
         expect(response).to have_http_status(:unprocessable_entity)
