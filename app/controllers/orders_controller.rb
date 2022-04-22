@@ -13,9 +13,12 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(params.require(:attributes).permit(:email))
-    @order.save
-    
-    render :new
+
+    if @order.save
+      redirect_to orders_url
+    else
+      render :new
+    end
   end
 
   def update

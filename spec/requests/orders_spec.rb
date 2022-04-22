@@ -58,10 +58,6 @@ RSpec.describe OrdersController, type: :controller do
   end
 
   describe 'POST #create' do
-    it "re-renders the :new template" do
-      post :create, params: @order_requirements
-      expect(response).to render_template :new
-    end
     
     context "with valid attributes" do
       it "saves the new order in the database" do
@@ -69,15 +65,25 @@ RSpec.describe OrdersController, type: :controller do
           post :create, params: @order_requirements
         }.to change(Order, :count).by(1)
       end
+
+      it "redirects to orders#index" do
+        post :create, params: @order_requirements
+        expect(response).to redirect_to orders_url
+      end
     end
 
     context "with invalid attributes" do
+      before { @order_requirements[:attributes] = attributes_for(:invalid_order) }
+      
       it "does not saves the new order in the database" do
-        @order_requirements[:attributes] = attributes_for(:invalid_order)
-        
         expect{
           post :create, params: @order_requirements
         }.not_to change(Order, :count)
+      end
+      
+      it "re-renders the :new template" do
+        post :create, params: @order_requirements
+        expect(response).to render_template :new
       end
     end
   end
