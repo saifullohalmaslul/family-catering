@@ -4,10 +4,10 @@ RSpec.describe OrdersController, type: :controller do
   before do
     @order_attributes = {
       order: attributes_for(:order).merge({
-        order_details: [
-          { menu_id: create(:menu_item) },
-          { menu_id: create(:menu_item) },
-          { menu_id: create(:menu_item) }
+        order_details_attributes: [
+          { menu_item_id: create(:menu_item), quantity: 1 },
+          { menu_item_id: create(:menu_item), quantity: 2 },
+          { menu_item_id: create(:menu_item), quantity: 2 }
         ]
       })
     }
