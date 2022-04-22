@@ -21,4 +21,19 @@ RSpec.describe MenuItem, type: :model do
   describe 'associations' do
     it { should have_many(:categories) }
   end
+
+  describe '#category_names' do
+    it 'should return its category names' do
+      categories = [
+        create(:category, name: "Indonesian"),
+        create(:category, name: "Hot"),
+        create(:category, name: "Beverage")
+      ]
+
+      menu_item = build(:menu_item)
+      menu_item.categories = categories
+
+      expect(menu_item.category_names).to eq "Indonesian, Hot, Beverage"
+    end
+  end
 end

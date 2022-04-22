@@ -6,4 +6,8 @@ class MenuItem < ApplicationRecord
 
   has_many :menu_categories
   has_many :categories, through: :menu_categories
+
+  def category_names
+    self.categories.map{ |category| category.name }.join(", ")
+  end
 end
