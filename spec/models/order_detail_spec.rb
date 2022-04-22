@@ -8,6 +8,13 @@ RSpec.describe OrderDetail, type: :model do
   it 'should have a valid factory' do
     expect(create(:order_detail)).to be_valid
   end
+
+  describe 'validation' do
+    it do
+      should validate_numericality_of(:quantity)
+        .only_integer.is_greater_than(0)
+    end
+  end
   
   describe 'associations' do
     it { should belong_to(:order) }
