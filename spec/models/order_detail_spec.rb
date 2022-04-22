@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe OrderDetail, type: :model do
+  it 'should have 1 as default for quantity' do
+    expect(OrderDetail.new.quantity).to eq 1
+  end
+  
   it 'should have a valid factory' do
     expect(create(:order_detail)).to be_valid
   end
