@@ -5,7 +5,7 @@ class Order < ApplicationRecord
   has_many :order_details
   has_many :menu_items, through: :order_details
 
-  accepts_nested_attributes_for :order_details
+  accepts_nested_attributes_for :order_details, allow_destroy: true
 
   before_save :calculate_total_price
 

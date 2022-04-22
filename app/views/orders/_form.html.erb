@@ -26,6 +26,8 @@
       <%= form.fields_for :order_details do |details_form| %>
         <%= details_form.collection_select :menu_item_id, MenuItem.all, :id, :name %>
         <%= details_form.number_field :quantity %>
+        <%= details_form.check_box :_destroy %>
+        remove?
         <br>
       <% end %>
   </div>
