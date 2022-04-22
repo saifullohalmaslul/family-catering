@@ -34,10 +34,10 @@ RSpec.describe Order, type: :model do
   it 'should save the total price of purchase' do
     order = create(:order_with_menu_items)
 
-    prices = order.order_details.map do |order_detail| 
+    total_price = order.order_details.sum do |order_detail| 
       order_detail.price * order_detail.quantity 
     end
 
-    expect(order.total_price).to eq prices.sum
+    expect(order.total_price).to eq total_price
   end
 end

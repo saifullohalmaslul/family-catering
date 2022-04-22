@@ -12,10 +12,10 @@ class Order < ApplicationRecord
   private
 
   def calculate_total_price
-    prices = self.order_details.map do |order_detail| 
+    total_price = self.order_details.sum do |order_detail| 
       order_detail.price * order_detail.quantity 
     end
     
-    self.total_price = prices.sum
+    self.total_price = total_price
   end
 end
