@@ -14,7 +14,7 @@ RSpec.describe OrdersController, type: :controller do
   end
 
   describe 'GET #index' do
-    it "populates an array of all orders" do
+    it "populates an array of all orders with newest first" do
       orders = [
         create(:order),
         create(:order),
@@ -22,7 +22,7 @@ RSpec.describe OrdersController, type: :controller do
       ]
 
       get :index
-      expect(assigns(:orders)).to match_array orders
+      expect(assigns(:orders)).to eq orders.reverse
     end
     
     it "renders the :index template" do
