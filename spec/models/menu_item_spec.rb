@@ -36,4 +36,14 @@ RSpec.describe MenuItem, type: :model do
       expect(menu_item.category_names).to eq "Indonesian, Hot, Beverage"
     end
   end
+
+  describe '#category_names=' do
+    it 'should asign its categories with the name' do
+      menu_item = build(:menu_item)
+      menu_item.category_names = "Indonesian, Cold, Beverage"
+      menu_item.save
+      
+      expect(menu_item.categories.pluck(:name)).to eq ["Indonesian", "Cold", "Beverage"]
+    end
+  end
 end
