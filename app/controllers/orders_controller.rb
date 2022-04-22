@@ -30,6 +30,13 @@ class OrdersController < ApplicationController
     end
   end
 
+  def destroy
+    @order = Order.find(params[:id])
+    @order.destroy
+
+    redirect_to orders_url
+  end
+
   private
 
   def order_params

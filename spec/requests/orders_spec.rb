@@ -139,4 +139,19 @@ RSpec.describe OrdersController, type: :controller do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+    before { @order = create(:order) }
+    
+    it "deletes the order from the database" do
+      expect{
+        delete :destroy, params: { id: @order }
+      }.to change(Order, :count).by(-1)
+    end
+    
+    it "redirects to menu_items#index" do
+      delete :destroy, params: { id: @order }
+      expect(response).to redirect_to orders_url
+    end
+  end
 end
