@@ -7,12 +7,13 @@ class Order < ApplicationRecord
 
   accepts_nested_attributes_for :order_details
 
-  after_save :calculate_total_price
+  before_save :calculate_total_price
 
   private
 
   def calculate_total_price
     total_price = self.order_details.sum do |order_detail| 
+      order_detail.save
       order_detail.price * order_detail.quantity 
     end
     
