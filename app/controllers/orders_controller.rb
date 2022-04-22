@@ -12,7 +12,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.new(params.require(:attributes).permit(:email))
+    @order = Order.new(params.require(:order).permit(:email))
 
     if @order.save
       redirect_to orders_url
@@ -23,6 +23,6 @@ class OrdersController < ApplicationController
 
   def update
     @order = Order.find(params[:id])
-    @order.update(params.require(:attributes).permit(:status, :email))
+    @order.update(params.require(:order).permit(:status, :email))
   end
 end

@@ -2,12 +2,14 @@ require 'rails_helper'
 
 RSpec.describe OrdersController, type: :controller do
   before do
-    @order_requirements = {
-      attributes: attributes_for(:order), 
-      details: [
-        { menu_item: create(:menu_item, price: 12_000), quantity: 1 },
-        { menu_item: create(:menu_item, price: 10_000), quantity: 3 }
-      ]
+    @order_attributes = {
+      order: attributes_for(:order).merge({
+        order_details: [
+          { menu_id: create(:menu_item) },
+          { menu_id: create(:menu_item) },
+          { menu_id: create(:menu_item) }
+        ]
+      })
     }
   end
 
@@ -62,27 +64,27 @@ RSpec.describe OrdersController, type: :controller do
     context "with valid attributes" do
       it "saves the new order in the database" do
         expect{
-          post :create, params: @order_requirements
+          post :create, params: @order_attributes
         }.to change(Order, :count).by(1)
       end
 
       it "redirects to orders#index" do
-        post :create, params: @order_requirements
+        post :create, params: @order_attributes
         expect(response).to redirect_to orders_url
       end
     end
 
     context "with invalid attributes" do
-      before { @order_requirements[:attributes] = attributes_for(:invalid_order) }
+      before { @order_attributes[:order] = attributes_for(:invalid_order) }
       
       it "does not saves the new order in the database" do
         expect{
-          post :create, params: @order_requirements
+          post :create, params: @order_attributes
         }.not_to change(Order, :count)
       end
       
       it "re-renders the :new template" do
-        post :create, params: @order_requirements
+        post :create, params: @order_attributes
         expect(response).to render_template :new
       end
     end
@@ -93,17 +95,17 @@ RSpec.describe OrdersController, type: :controller do
     
     context "with valid attributes" do
       it "locates the requested @order" do
-        @order_requirements[:id] = order
-        patch :update, params: @order_requirements
+        @order_attributes[:id] = order
+        patch :update, params: @order_attributes
         
         expect(assigns(:order)).to eq order
       end
 
       it "changes the @order's attribute" do
-        @order_requirements[:id] = order
-        @order_requirements[:attributes][:status] = 'PAID'
+        @order_attributes[:id] = order
+        @order_attributes[:order][:status] = 'PAID'
         
-        patch :update, params: @order_requirements
+        patch :update, params: @order_attributes
         order.reload
         
         expect(order.status).to eq 'PAID'
@@ -112,10 +114,10 @@ RSpec.describe OrdersController, type: :controller do
 
     context "with invalid attributes" do
       it "does not change the @order's attribute" do
-        @order_requirements[:id] = order
-        @order_requirements[:attributes] = attributes_for(:invalid_order)
+        @order_attributes[:id] = order
+        @order_attributes[:order] = attributes_for(:invalid_order)
         
-        patch :update, params: @order_requirements
+        patch :update, params: @order_attributes
         order.reload
         
         expect(order.status).not_to eq attributes_for(:invalid_order)[:status]
