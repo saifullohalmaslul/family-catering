@@ -12,11 +12,13 @@ class MenuItem < ApplicationRecord
   end
 
   def category_names=(new_categories)
-    category_names = new_categories.split(/,\s+/) 
+    category_names = new_categories.split(",").map(&:strip) 
 
-    self.categories = []
+    categories = []
     category_names.each do |category_name|
-      self.categories << Category.find_or_create_by(name: category_name)
+      categories << Category.find_or_create_by(name: category_name)
     end
+
+    self.categories = categories.uniq
   end
 end
