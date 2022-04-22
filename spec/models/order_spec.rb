@@ -32,12 +32,17 @@ RSpec.describe Order, type: :model do
   end
 
   it 'should save the total price of purchase' do
-    order = create(:order_with_menu_items)
+    order = create(:order)
+    menu_item_1 = build(:menu_item, price: 10_000)
+    menu_item_2 = build(:menu_item, price: 15_000)
+    order_details = [
+      build(:order_detail, menu_item: menu_item_1, quantity: 2),
+      build(:order_detail, menu_item: menu_item_2, quantity: 1)
+    ]
 
-    total_price = order.order_details.sum do |order_detail| 
-      order_detail.price * order_detail.quantity 
-    end
+    order.order_details = order_details
+    order.save
 
-    expect(order.total_price).to eq total_price
+    expect(order.total_price).to eq 35_000
   end
 end
