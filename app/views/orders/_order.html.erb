@@ -6,7 +6,15 @@
   
   <p>
     <strong>Status:</strong>
-    <%= order.status %>
+    <% case order.status %>
+    <% when "PAID" %>
+      <% status_color = "green" %>
+    <% when "CANCELED" %>
+      <% status_color = "red" %>
+    <% else %>
+      <% status_color = "blue" %>
+    <% end %>
+    <span style="color:<%= status_color %>"><%= order.status %></span>
   </p>
   
   <p>
