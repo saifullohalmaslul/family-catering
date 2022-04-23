@@ -1,2 +1,13 @@
-<h1>Reports#index</h1>
-<p>Find me in app/views/reports/index.html.erb</p>
+<h1>Reports</h1>
+<% if @orders.empty? %>
+  No paid orders found
+<% else %>
+  <% total_income = @orders.pluck(:total_price).sum %>
+  <h3>Total Income = <%= "Rp#{number_with_delimiter(total_income)}" %></h3>
+  <div id="reports">
+    <% @orders.each do |order| %>
+      <hr>
+      <%= render order %>
+    <% end %>
+  </div>
+<% end %>
