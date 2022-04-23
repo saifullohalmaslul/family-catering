@@ -5,14 +5,15 @@ class OrdersController < ApplicationController
   
   def new
     @order = Order.new
+    
+    add_items_count = 1
     if params[:count]
-      add_items_count = params[:count].to_i
-      if add_items_count > 0
-        add_items_count.times { @order.order_details.build }
+      if params[:count].to_i > 0
+        add_items_count = params[:count].to_i
       end
-    else
-      1.times { @order.order_details.build }
     end
+    
+    add_items_count.times { @order.order_details.build }
   end
 
   def edit
