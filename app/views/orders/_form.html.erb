@@ -22,17 +22,25 @@
   </div>
 
   <div>
+    <br>
     <%= form.label :items, style: "display: block" %>
-      <%= form.fields_for :order_details do |details_form| %>
-        <%= details_form.collection_select :menu_item_id, MenuItem.all, :id, :name %>
-        <%= details_form.number_field :quantity %>
-        <%= details_form.check_box :_destroy %>
-        remove?
-        <br>
-      <% end %>
+    <%= form.fields_for :order_details do |details_form| %>
+      <%= details_form.collection_select :menu_item_id, MenuItem.all, :id, :name %>
+      <%= details_form.number_field :quantity %>
+      <%= details_form.check_box :_destroy %>
+      remove?
+      <br>
+    <% end %>
   </div>
-
+  <br>
   <div>
     <%= form.submit %>
   </div>
+<% end %>
+      
+<br>
+<%= form_with(url: action, method: :get) do |items_form| %>
+  <%= items_form.label :add %>
+  <%= items_form.number_field :count %>Items
+  <%= items_form.submit "Go" %>
 <% end %>

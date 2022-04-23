@@ -5,11 +5,24 @@ class OrdersController < ApplicationController
   
   def new
     @order = Order.new
-    4.times { @order.order_details.build }
+    if params[:count]
+      add_items_count = params[:count].to_i
+      if add_items_count > 0
+        add_items_count.times { @order.order_details.build }
+      end
+    else
+      1.times { @order.order_details.build }
+    end
   end
 
   def edit
     @order = Order.find(params[:id])
+    if params[:count]
+      add_items_count = params[:count].to_i
+      if add_items_count > 0
+        add_items_count.times { @order.order_details.build }
+      end
+    end
   end
 
   def create
