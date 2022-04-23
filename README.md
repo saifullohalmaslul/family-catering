@@ -1,25 +1,21 @@
-# Rails on Replit
+# Family Catering App
 
-This is a template to get you started with Rails on Replit. It's ready to go so you can just hit run and start coding!
+This application is used to document things related to family catering business. It can record menu, orders, and create daily reports
 
-This template was generated using `rails new` (after you install the `rails` gem from the packager sidebar) so you can always do that if you prefer to set it up from scratch. The only had two make config changes we had to make to run it on Replit:
+## Menu
 
-- bind the app on `0.0.0.0` instead of `localhost` (see `.replit`)
-- allow `*.repl.co` hosts (see `config/environments/development.rb`)
-- allow the app to be iframed on `replit.com` (see `config/application.rb`)
+`/menu_items` will list the available menu items. 
 
-## Running the app
+Create menu items using the "New menu item" link at the top. To add multiple category to a menu item, separate each category names with a comma. 
 
-Simple hit run! You can edit the run command from the `.replit` file.
+You can see an individual menu item by clicking "Show this menu". There you can choose to edit or delete the item.
 
-## Running commands
+## Orders
 
-Start every command with `bundle exec` so that it runs in the context of the installed gems environment. The console pane will give you output from the server but you can run arbitrary command from the shell without stopping the server.
+`/orders` will list all the orders, starting with the most recent.
 
-## Database
+When creating or editing an order, you can create additional items field. Note that this will only add fields by the specified amount, not incrementaly.
 
-SQLite would work in development but we don't recommend running it in production. Instead look into using the built-in [Replit database](http://docs.replit.com/misc/database). Otherwise you are welcome to connect databases from your favorite provider. 
+## Reports
 
-## Help
-
-If you need help you might be able to find an answer on our [docs](https://docs.replit.com) page. Alternatively you can [ask in the community](https://replit.com/talk/ask). Feel free to report bugs [here](https://replit.com/bugs) and give us feedback [here](https://Replit/feedback).
+`/reports` will show all completed (paid) orders within a date. It will also show the total income for that date
