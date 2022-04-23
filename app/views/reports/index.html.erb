@@ -1,4 +1,10 @@
 <h1>Reports</h1>
+<% @date = Date.today unless defined?(@date) %>
+<%= form_with url: reports_path, method: :get do |form| %>
+  <%= form.label :date %>
+  <%= form.date_field :date, value: @date %>
+  <%= form.submit "Go" %>
+<% end %>
 <% if @orders.empty? %>
   No paid orders found
 <% else %>
